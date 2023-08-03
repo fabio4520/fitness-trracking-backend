@@ -22,8 +22,6 @@ const Body_weight = sequelize.define('body_weight', {
   freezeTableName: true
 });
 
-Body_weight.sync({ alter: true })
-
 module.exports = Body_weight;
 
 

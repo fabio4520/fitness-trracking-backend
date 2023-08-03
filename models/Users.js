@@ -9,12 +9,20 @@ const User = sequelize.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  user_name: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  email: { type: DataTypes.STRING },
-  password: { type: DataTypes.STRING },
+  email: {
+    type: DataTypes.STRING,
+    unique: true,
+    isEmail: true,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   age: { type: DataTypes.INTEGER },
   height: { type: DataTypes.INTEGER },
   weight: { type: DataTypes.INTEGER }
@@ -22,7 +30,5 @@ const User = sequelize.define('user', {
   timestamps: true,
   freezeTableName: true
 });
-
-User.sync({ alter: true })
 
 module.exports = User;
