@@ -1,10 +1,16 @@
 const bycrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
+const { validationResult } = require('express-validator');
 
 // Signig a user up
 const signup = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     const { user_name, email, password } = req.body;
     const data = {
       user_name,
@@ -30,6 +36,11 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     const { email, password } = req.body;
     //find a user by their email
     const user = await Users.findOne({
@@ -64,6 +75,10 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     res.clearCookie('jwt');
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {

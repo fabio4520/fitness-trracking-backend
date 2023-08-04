@@ -1,8 +1,14 @@
 const { Categories } = require('../models');
+const { validationResult } = require('express-validator');
 
 // hazme los controladores para este modelo
 const getAllCategories = async (req, res) => {
   try {
+    // Validations
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const categories = await Categories.findAll();
     let message;
     categories.length > 0 ? message = "All categories" : message = "No categories";
@@ -15,6 +21,11 @@ const getAllCategories = async (req, res) => {
 
 const getOneCategory = async (req, res) => {
   try {
+    // Validations
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const { idCategory } = req.params;
     const category = await Categories.findOne({
       where: { id_category: idCategory },
@@ -29,6 +40,11 @@ const getOneCategory = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
+    // Validations
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const { name } = req.body;
     const category = await Categories.create({
       name,
@@ -42,6 +58,11 @@ const createCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
   try {
+    // Validations
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const { idCategory } = req.params;
     if (!idCategory) {
       return res.status(400).json({ message: "Category id is required", status: 400 });
@@ -68,6 +89,11 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   try {
+    // Validations
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     const { idCategory } = req.params;
     if (!idCategory) {
       return res.status(400).json({ message: "Category id is required", status: 400 });
