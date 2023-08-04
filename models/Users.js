@@ -2,7 +2,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const User = sequelize.define('user', {
+const Users = sequelize.define('user', {
   // Model attributes are defined here
   id_user: {
     type: DataTypes.INTEGER,
@@ -25,10 +25,20 @@ const User = sequelize.define('user', {
   },
   age: { type: DataTypes.INTEGER },
   height: { type: DataTypes.INTEGER },
-  weight: { type: DataTypes.INTEGER }
+  weight: { type: DataTypes.INTEGER },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+  }
 }, {
   timestamps: true,
-  freezeTableName: true
+  freezeTableName: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
-module.exports = User;
+module.exports = Users;

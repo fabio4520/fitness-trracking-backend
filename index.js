@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+var logger = require('morgan');
 const app = express();
 const sequelize = require('./database');
 const cookieParser = require('cookie-parser')
@@ -18,11 +19,14 @@ sequelize
   });
 
 // Sync all models that aren't already in the database
-// sequelize.sync({ alter: true }).then(() => {
+// sequelize.sync(
+//   { force: true }
+// ).then(() => {
 //   console.log("All models were synchronized successfully.");
 // });
 
 //middleware
+app.use(logger('dev'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -30,9 +34,5 @@ app.use(cookieParser())
 // routes
 app.use('/api', indexRouter);
 
-app.get("/", (req, res) => {
-  res.send("I will be shown on the Browser");
-  console.log("I will be shown on the Terminal");
-});
 
 app.listen(3000);

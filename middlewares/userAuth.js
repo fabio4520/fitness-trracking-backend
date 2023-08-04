@@ -25,13 +25,19 @@ const saveUser = async (req, res, next) => {
 
 const verifyToken = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    // const token = req.cookies.jwt;
+    // Get token from bearer token
+    if (!req.headers.authorization) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const bearerToken = req.headers.authorization;
+    const token = bearerToken.split(" ")[1];
+
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.userId = decoded.id;
-    console.log("pasaste siu");
     next();
   } catch (error) {
     console.log("Error: ", error);

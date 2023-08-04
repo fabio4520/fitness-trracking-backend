@@ -16,10 +16,20 @@ const Body_weight = sequelize.define('body_weight', {
       model: User,
       key: 'id_user'
     }
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
   timestamps: true,
-  freezeTableName: true
+  freezeTableName: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 module.exports = Body_weight;
