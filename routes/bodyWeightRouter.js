@@ -10,8 +10,6 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 
-
-
 router.get('/', getAllBodyWeight);
 router.get('/:idBodyWeight', getOneBodyWeight);
 router.post('/',
