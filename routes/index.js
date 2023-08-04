@@ -4,9 +4,10 @@ const router = express.Router();
 const { verifyToken } = require('../middlewares/userAuth');
 const userRouter = require('./usersRouter');
 const categoriesRouter = require('./categoriesRouter');
-
+const bodyWeightRouter = require('./bodyWeightRouter');
 
 router.use('/users', userRouter);
 router.use('/categories', verifyToken, categoriesRouter);
+router.use('/bodyWeight', verifyToken, bodyWeightRouter);
 
 module.exports = router;
