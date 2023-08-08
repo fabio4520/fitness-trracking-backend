@@ -1,14 +1,18 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-const Categories = sequelize.define('categories', {
+const Training_plans = sequelize.define('training_plans', {
   // Model attributes are defined here
-  id_category: {
+  id_training_plan: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  plan: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  description: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -18,4 +22,4 @@ const Categories = sequelize.define('categories', {
 });
 
 
-module.exports = Categories;
+module.exports = Training_plans;

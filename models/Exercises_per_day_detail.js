@@ -1,6 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Exercises_per_day = require('./Exercises_per_day');
+const Exercises = require('./Exercises');
 
 const Exercises_per_day_detail = sequelize.define('exercises_per_day_detail', {
   // Model attributes are defined here
@@ -15,6 +16,14 @@ const Exercises_per_day_detail = sequelize.define('exercises_per_day_detail', {
     references: {
       model: Exercises_per_day,
       key: 'id_exercise_per_day'
+    }
+  },
+  id_exercise: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Exercises,
+      key: 'id_exercise'
     }
   },
   set_number: {

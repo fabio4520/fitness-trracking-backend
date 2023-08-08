@@ -1,11 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
-const User = require('./Users');
-const Training_plan = require('./Training_plans');
+const Users = require('./Users');
+const Training_plans = require('./Training_plans');
 
-const Training_days = sequelize.define('training_days', {
+const Users_training_plans = sequelize.define('users_training_plans', {
   // Model attributes are defined here
-  id_training_day: {
+  id_user_training_plan: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -14,23 +14,15 @@ const Training_days = sequelize.define('training_days', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: User,
+      model: Users,
       key: 'id_user'
     }
-  },
-  training_date: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  notes: {
-    type: DataTypes.STRING,
-    allowNull: true
   },
   id_training_plan: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Training_plan,
+      model: Training_plans,
       key: 'id_training_plan'
     }
   },
@@ -39,4 +31,5 @@ const Training_days = sequelize.define('training_days', {
   freezeTableName: true
 });
 
-module.exports = Training_days;
+
+module.exports = Users_training_plans;
