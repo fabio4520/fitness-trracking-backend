@@ -8,6 +8,7 @@ const Muscular_groups = require('./Muscular_groups');
 const Users_training_plans = require('./Users_training_plans');
 const Training_plans = require('./Training_plans');
 const Training_plans_exercises = require('./Training_plans_exercises');
+const Exercises_muscular_groups = require('./Exercises_muscular_groups');
 
 // Associations
 // ONE TO MANY RELATIONSHIP
@@ -26,6 +27,9 @@ Users.belongsToMany(Training_plans, { through: Users_training_plans, foreignKey:
 // Training_plans con Exercises
 Exercises.belongsToMany(Training_plans, { through: Training_plans_exercises, foreignKey: 'id_exercise' });
 Training_plans.belongsToMany(Exercises, { through: Training_plans_exercises, foreignKey: 'id_training_plan' });
+// Exercises con Muscular_groups
+Exercises.belongsToMany(Muscular_groups, { through: Exercises_muscular_groups, foreignKey: 'id_exercise' });
+Muscular_groups.belongsToMany(Exercises, { through: Exercises_muscular_groups, foreignKey: 'id_muscular_group' });
 
 // ONE TO ONE RELATIONSHIP
 Exercises.hasOne(Muscular_groups, { foreignKey: 'id_exercise' });
@@ -41,5 +45,6 @@ module.exports = {
   Muscular_groups,
   Users_training_plans,
   Training_plans,
-  Training_plans_exercises
+  Training_plans_exercises,
+  Exercises_muscular_groups
 }
